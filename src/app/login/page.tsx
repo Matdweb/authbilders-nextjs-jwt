@@ -2,14 +2,13 @@
 import AuthForm from '@/components/Form/AuthForm'
 import { passwordSchema } from '@/app/lib/zod'
 import { login } from '@/app/lib/actions'
-import Link from 'next/link'
 
 export default function LoginPage() {
     return (
         <AuthForm
             title="Login"
             action={login}
-            // redirectTo='/'
+            redirectTo='/'
             fields={[
                 {
                     name: 'email',
