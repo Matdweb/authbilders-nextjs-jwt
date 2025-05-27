@@ -12,7 +12,7 @@ export async function GET() {
     const data = {
         message: "Hello from API route!",
         timestamp: new Date().toISOString(),
-        user_id: session.user.id,
+        user_id: session?.user?.id,
         code: 200
     }
 
