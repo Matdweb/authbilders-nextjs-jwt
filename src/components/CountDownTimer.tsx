@@ -2,14 +2,14 @@
 import { useEffect, useState } from 'react';
 import { inconsolata } from "@/app/ui/fonts";
 import { usePathname } from 'next/navigation';
-import type { User } from '@/app/lib/defintions';
+import type { Session } from '@/app/lib/defintions';
 
 const DEFAULT_TIME_FORMAT = '--:--:--';
 
 export function CountDownTimer({
   data
 }: {
-  data: User | null;
+  data: Session | null;
 }) {
   const pathname = usePathname();
   const [timeLeft, setTimeLeft] = useState<number>(() => {

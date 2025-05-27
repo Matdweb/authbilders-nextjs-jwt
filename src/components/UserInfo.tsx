@@ -4,14 +4,10 @@ import { Tooltip, User, Chip, Code } from "@heroui/react";
 import { usePathname } from "next/navigation";
 import type { User as UserType } from "@/app/lib/defintions";
 import { CloseIcon } from "./icons";
-// import { sendEmailVerification } from "@/app/lib/utils/email";
-// import { sendEmailVerificationToast } from "./Alerts/Toasts";
 
 type UserInfoProps = {
-  data: UserType | null;
+  data: UserType | undefined | null;
 };
-
-
 
 export function UserInfo({ data }: UserInfoProps) {
   const pathname = usePathname();
@@ -22,18 +18,6 @@ export function UserInfo({ data }: UserInfoProps) {
   if (!data) return null;
 
   const { email, name, picture, email_verified } = data;
-
-  // const handleSendEmailVerification = async () => {
-  //   if (email_verified) return;
-
-  //   const response = await sendEmailVerification(email || "");
-
-  //   sendEmailVerificationToast({
-  //     title: response.success ? "Email verification sent" : "Failed to send verification email",
-  //     description: (response.success ? "Check your inbox and junk" : "Try again"),
-  //     color: response.success ? "success" : "danger",
-  //   });
-  // };
 
   function SessionDisplay() {
     return (
