@@ -1,20 +1,10 @@
-import type { CreateEmailResponseSuccess } from "resend";
 
 export type AuthServerActionState = {
   success?: boolean;
   message?: string[];
-  user?: AuthServerActionStateUser;
-  data?: AuthServerActionStateData;
+  user?: User | null;
   errors?: AuthServerActionStateErrors;
 } | undefined;
-
-export type AuthServerActionStateUser = {
-  uid?: string;
-  email?: string;
-  displayName?: string;
-} | null;
-
-export type AuthServerActionStateData = CreateEmailResponseSuccess | null;
 
 export type AuthServerActionStateErrors = {
   name?: string[];
@@ -47,4 +37,11 @@ export type ServerResponse<T = unknown> = {
 
 export type CatchedError = {
   code?: string;
+}
+
+export interface Session {
+  expires?: Date | string;
+  exp?: number;
+  user?: User;
+  [key: string]: unknown;
 }
