@@ -1,13 +1,11 @@
 import type {
     AuthServerActionState,
-    AuthServerActionStateUser,
-    AuthServerActionStateData,
+    User,
     AuthServerActionStateErrors
 } from "../defintions";
 
 type AuthServerActionStateExtras = {
-    user?: AuthServerActionStateUser;
-    data?: AuthServerActionStateData;
+    user?: User;
     errors?: AuthServerActionStateErrors;
 };
 
