@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Tooltip, User, Chip, Code } from "@heroui/react";
 import { usePathname } from "next/navigation";
-import type { User as UserType } from "@/app/lib/defintions";
+import type { User as UserType } from "@/app/lib/(AuthBilders)/defintions";
 import { CloseIcon } from "./icons";
 
 type UserInfoProps = {

@@ -1,15 +1,15 @@
 'use client';
 import AuthForm from '@/components/(AuthBilders)/Form/AuthForm'
-import { passwordSchema } from '@/app/lib/(AuthBilders)/zod'
-import { login } from '@/app/lib/(AuthBilders)/actions';
-import Link from 'next/link';
+import { passwordSchema } from '../lib/(AuthBilders)/zod'
+import { signUp } from '@/app/lib/(AuthBilders)/actions'
+import Link from 'next/link'
 
-export default function LoginPage() {
+export default function SignUpPage() {
     return (
         <AuthForm
-            title="Login"
-            action={login}
-            redirectTo='/'
+            title="Sign Up"
+            strategy="server"
+            action={signUp}
             fields={[
                 {
                     name: 'email',
@@ -28,12 +28,9 @@ export default function LoginPage() {
             ]}
             thirdPartyProviders={['google', 'github']}
             extraContent={
-                <section className="mt-4 text-gray-400">
+                <section className="mt-8 text-gray-400">
                     <p className="text-center">
-                        Don&apos;t have an account? <Link href="/signUp" className="text-blue-500">Sign Up</Link>
-                    </p>
-                    <p className="text-center">
-                        A lot in mind? <Link href="/forgot-password/provide-email" className="text-blue-500 cursor-pointer">Forgot password</Link>
+                        You already have an account? <Link href="/login" className="text-blue-500">Login</Link>
                     </p>
                 </section>
             }

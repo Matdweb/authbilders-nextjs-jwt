@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { inconsolata } from "@/app/ui/fonts";
 import { usePathname } from 'next/navigation';
-import type { Session } from '@/app/lib/defintions';
+import type { Session } from '@/app/lib/(AuthBilders)/defintions';
 
 const DEFAULT_TIME_FORMAT = '--:--:--';
 

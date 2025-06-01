@@ -1,5 +1,5 @@
 import { errorResponse, } from './response';
-import type { ThirdPartyProvidersNames } from '@/components/Form/AuthForm';
+import type { ThirdPartyProvidersNames } from '@/components/(AuthBilders)/Form/AuthForm';
 
 export const signInWithProvider = async (providerName: ThirdPartyProvidersNames) => {
     //providers logic here

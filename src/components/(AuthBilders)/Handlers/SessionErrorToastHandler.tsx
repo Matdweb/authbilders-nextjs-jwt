@@ -1,9 +1,9 @@
 'use client';
 import { useEffect, useRef } from "react";
-import { SessionErrorToast } from "@/components/Alerts/Toasts";
+import { SessionErrorToast } from "@/components/(AuthBilders)/Alerts/Toasts";
 import { Button } from "@heroui/react";
 import { useRouter } from "next/navigation";
-import type { Session } from "@/app/lib/defintions";
+import type { Session } from "@/app/lib/(AuthBilders)/defintions";
 
 export default function SessionErrorToastHandler({
   data,

@@ -1,4 +1,4 @@
-import { getSession } from "@/app/lib/dal/session";
+import { getSession } from "@/app/lib/(AuthBilders)/dal/session";
 
 export async function GET() {
     const session = await getSession();

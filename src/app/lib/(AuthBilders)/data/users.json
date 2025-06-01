@@ -19,6 +19,17 @@
     "password": "$2a$12$BydaxUY7GU8c0njFKyaoqeXnZjBLQa3mq623x37tBowkVZdxFIw6u",
     "email_verified": false,
     "name": "Matias Vargas"
+  },
+  {
+    "id": "586cd391-734c-4086-a72c-12d7e73319d6",
+    "email": "mat.dweb28@gmail.com",
+    "password": "$2b$10$FoNBCbkNM65S4gDaDmxgYu9l03B52TFpD9GSrsgpTA1SdxeeSk8tu",
+    "email_verified": false
+  },
+  {
+    "id": "78276e24-a31a-48d7-8268-f98411f1dad3",
+    "email": "nextauth@gmail.com",
+    "password": "$2b$10$ScIvM2h7wn2zA/3.yenobuWct7n2PW7ALlc45670bJipnbbOr2OnS",
+    "email_verified": false
   }
 ]
-
