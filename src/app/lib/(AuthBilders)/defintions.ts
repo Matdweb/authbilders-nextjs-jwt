@@ -1,8 +1,17 @@
+import type { CreateEmailResponseSuccess } from "resend";
+
+export type AuthServerActionStateData = CreateEmailResponseSuccess | null;
+
+export type AuthServerActionStateExtras = {
+  user?: User;
+  data?: AuthServerActionStateData;
+  errors?: AuthServerActionStateErrors;
+};
 
 export type AuthServerActionState = {
   success?: boolean;
   message?: string[];
-  user?: User | null;
+  user?: User;
   errors?: AuthServerActionStateErrors;
 } | undefined;
 

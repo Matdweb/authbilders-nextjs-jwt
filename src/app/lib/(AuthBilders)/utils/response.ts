@@ -1,13 +1,8 @@
 import type {
     AuthServerActionState,
-    User,
     AuthServerActionStateErrors
 } from "../defintions";
-
-type AuthServerActionStateExtras = {
-    user?: User;
-    errors?: AuthServerActionStateErrors;
-};
+import type { AuthServerActionStateExtras } from "../defintions";
 
 export const successResponse = (
     message: string[] = [],
