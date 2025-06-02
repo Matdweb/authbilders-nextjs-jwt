@@ -12,6 +12,7 @@ export type AuthServerActionState = {
   success?: boolean;
   message?: string[];
   user?: User;
+  data?: AuthServerActionStateData;
   errors?: AuthServerActionStateErrors;
 } | undefined;
 

@@ -8,6 +8,9 @@ import { addUser, findUserByEmail, validateUser } from "@/app/lib/(AuthBilders)/
 import { encrypt } from "./utils/jwt";
 import { extractErrorDetails } from "./utils/errors";
 import { sendEmailVerification } from "./utils/email";
+import { createResetPasswordToken } from "./utils/jwt";
+import { passwordSchema } from "./zod";
+import { resetUserPassword } from "@/app/lib/(AuthBilders)/dal/queries";
 
 const timeSec = 100; // 100 seconds
 
@@ -100,5 +103,64 @@ export async function signUp(
     return errorResponse(['Failed to register user'], {
       email: [message || 'Failed to register user']
     });
+  }
+}
+
+export async function sendPasswordResetEmail(
+  _prevState: AuthServerActionState,
+  formData: FormData
+): Promise<AuthServerActionState> {
+  const email = formData.get("email") as string;
+  const resetToken = await createResetPasswordToken(email);
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
+  try {
+    const response = await fetch(`${baseUrl}/api/reset-password/send`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email,
+        redirectUrl: `${baseUrl}/forgot-password/reset-password?token=${resetToken}`
+      }),
+    });
+
+    const result = await response.json();
+    return {
+      success: response.ok,
+      message: [result?.message || "Unknown server response"],
+      data: result?.data ?? null,
+    };
+  } catch (error) {
+    const { message } = extractErrorDetails(error);
+    errorResponse(["Email server error", message])
+  }
+}
+
+export async function handlePasswordReset(
+  _prevState: AuthServerActionState,
+  formData: FormData
+) {
+  const email = formData.get("email") as string;
+  const password = formData.get("password") as string;
+
+  const validated = passwordSchema.safeParse(password);
+  if (!validated.success) {
+    return errorResponse(["Invalid password"], {
+      password: validated.error.flatten().fieldErrors[0]
+    });
+  }
+
+  try {
+    await resetUserPassword(email, password);
+
+    return successResponse([
+      "Password updated successfully.",
+      "You can now login with your new password"
+    ]);
+  } catch {
+    return errorResponse([
+      "Failed to update password.",
+      "Please try again"
+    ]);
   }
 }
