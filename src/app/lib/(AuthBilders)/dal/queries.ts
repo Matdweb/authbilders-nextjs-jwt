@@ -8,13 +8,11 @@ import { successResponse, errorResponse } from '../utils/response';
 
 const USERS_PATH = path.join(process.cwd(), 'src/app/lib/(AuthBilders)/data/users.json');
 
-// Read all users from JSON
 export const getAllUsers = (): User[] => {
     const jsonData = fs.readFileSync(USERS_PATH, 'utf-8');
     return JSON.parse(jsonData) as User[];
 };
 
-// Find a user by email
 export const findUserByEmail = (email: string): User | undefined => {
     return getAllUsers().find((user) => user.email === email);
 };
@@ -55,12 +53,28 @@ export const addUser = async ({ email, password }: { email: string; password: st
 
 export const verifyUserEmail = (email: string): User | null => {
     const users = getAllUsers();
-    const user = users.find((user) => user.email === email);
-    
+    const user = findUserByEmail(email);
+    const userIndex = users.findIndex((u) => u.email === email);
+
     if (!user) return null;
 
     user.email_verified = true;
+    users[userIndex] = user;
     fs.writeFileSync(USERS_PATH, JSON.stringify(users, null, 2));
-    
+
     return user;
+}
+
+export const resetUserPassword = async (email: string, newPassword: string): Promise<User | null> => {
+    const users = getAllUsers();
+    const userIndex = users.findIndex((user) => user.email === email);
+
+    if (userIndex === -1) return null;
+
+    const hash = await bcrypt.hash(newPassword, 10);
+    users[userIndex].password = hash;
+
+    fs.writeFileSync(USERS_PATH, JSON.stringify(users, null, 2));
+
+    return users[userIndex];
 }
