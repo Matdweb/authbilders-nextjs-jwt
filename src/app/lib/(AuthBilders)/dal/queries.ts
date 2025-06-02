@@ -52,3 +52,15 @@ export const addUser = async ({ email, password }: { email: string; password: st
         });
     }
 }
+
+export const verifyUserEmail = (email: string): User | null => {
+    const users = getAllUsers();
+    const user = users.find((user) => user.email === email);
+    
+    if (!user) return null;
+
+    user.email_verified = true;
+    fs.writeFileSync(USERS_PATH, JSON.stringify(users, null, 2));
+    
+    return user;
+}
