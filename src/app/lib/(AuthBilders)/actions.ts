@@ -7,6 +7,7 @@ import { FormDataSchema } from "./zod";
 import { addUser, findUserByEmail, validateUser } from "@/app/lib/(AuthBilders)/dal/queries";
 import { encrypt } from "./utils/jwt";
 import { extractErrorDetails } from "./utils/errors";
+import { sendEmailVerification } from "./utils/email";
 
 const timeSec = 100; // 100 seconds
 
@@ -83,7 +84,16 @@ export async function signUp(
       return errorResponse(['Failed to register user'], res?.errors || {});
     }
 
-    return successResponse(['Account created successfully!']);
+    const emailRes = await sendEmailVerification(email)
+
+    if (!emailRes.success) {
+      return errorResponse(['User created, but email failed', ...emailRes.message], {})
+    }
+
+    return successResponse(['User created', 'Verification email sent'], {
+      user: res.user,
+      data: emailRes.data,
+    })
   }
   catch (error) {
     const { message = 'Unexpected error occurred' } = extractErrorDetails(error);
